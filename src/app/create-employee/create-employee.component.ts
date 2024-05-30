@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Employee, EmployeeServiceService } from '../employee-service.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-employee',
@@ -11,11 +11,13 @@ import { Router } from '@angular/router';
 export class CreateEmployeeComponent implements OnInit {
   employeeForm: FormGroup;
   employee: Employee | null = null;
+  isEditMode: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private employeeService: EmployeeServiceService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as { employee: Employee };
@@ -30,17 +32,26 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const state = history.state as { employee: Employee };
-    if (state && state.employee) {
-      this.employee = state.employee;
-      this.employeeForm.patchValue(this.employee);
+    // const state = history.state as { employee: Employee };
+    // if (state && state.employee) {
+    //   this.employee = state.employee;
+    //   this.employeeForm.patchValue(this.employee);
+    // }
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.isEditMode = true;
+      const state = history.state as { employee: Employee };
+      if (state && state.employee) {
+        this.employee = state.employee;
+        this.employeeForm.patchValue(this.employee);
+      }
     }
   }
 
   onSubmit(): void {
     if (this.employeeForm.valid) {
       const employeeData: Employee = this.employeeForm.value;
-      if (employeeData.id) {
+      if (this.isEditMode && employeeData.id) {
         console.log(employeeData);
         this.employeeService.updateEmployee(employeeData).subscribe(() => {
           this.router.navigate(['/employees'], {

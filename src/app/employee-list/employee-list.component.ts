@@ -77,7 +77,7 @@ export class EmployeeListComponent implements OnInit {
 
   editEmployee(employee: Employee): void {
     console.log(employee);
-    this.router.navigate(['/create'], { state: { employee } });
+    this.router.navigate(['/edit', employee.id], { state: { employee } });
   }
 
   viewDetails(employee: Employee): void {
