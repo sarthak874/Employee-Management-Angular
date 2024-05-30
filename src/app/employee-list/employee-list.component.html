@@ -1,0 +1,118 @@
+<div class="container mt-3">
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Salary</th>
+        <th>Age</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of filteredEmployees">
+        <td>{{ employee.id }}</td>
+        <td (click)="viewDetails(employee)" style="cursor: pointer">
+          {{ employee.name }}
+        </td>
+        <td>{{ employee.salary }}</td>
+        <td>{{ employee.age }}</td>
+        <td>
+          <button
+            class="btn btn-primary btn-sm"
+            (click)="editEmployee(employee)"
+          >
+            Edit
+          </button>
+          <button
+            class="btn btn-danger btn-sm delete-property"
+            (click)="confirmDelete(employee)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- Delete Confirmation Modal -->
+  <div
+    class="modal fade"
+    tabindex="-1"
+    [ngClass]="{ 'show d-block': employeeToDelete }"
+    role="dialog"
+    *ngIf="employeeToDelete"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Delete Confirmation</h5>
+          <button
+            type="button"
+            class="btn-close"
+            aria-label="Close"
+            (click)="closeModal()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete {{ employeeToDelete?.name }}?</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="closeModal()"
+          >
+            No
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="deleteEmployee()"
+          >
+            Yes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Details Popup -->
+  <div
+    class="modal fade"
+    tabindex="-1"
+    [ngClass]="{ 'show d-block': employeeToView }"
+    role="dialog"
+    *ngIf="employeeToView"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Employee Details</h5>
+          <button
+            type="button"
+            class="btn-close"
+            aria-label="Close"
+            (click)="closeDetails()"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p>ID: {{ employeeToView.id }}</p>
+          <p>Name: {{ employeeToView.name }}</p>
+          <p>Salary: {{ employeeToView.salary }}</p>
+          <p>Age: {{ employeeToView.age }}</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="closeDetails()"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

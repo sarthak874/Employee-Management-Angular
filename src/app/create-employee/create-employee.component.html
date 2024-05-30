@@ -1,0 +1,65 @@
+<div class="container mt-3">
+  <h2>{{ employeeForm.value.id ? "Edit" : "Create" }} Employee</h2>
+  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        formControlName="name"
+      />
+      <div
+        *ngIf="
+          employeeForm.controls.name.invalid &&
+          employeeForm.controls.name.touched
+        "
+        class="text-danger"
+      >
+        Name is required and must contain only letters.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="salary" class="form-label">Salary</label>
+      <input
+        type="number"
+        class="form-control"
+        id="salary"
+        formControlName="salary"
+      />
+      <div
+        *ngIf="
+          employeeForm.controls.salary.invalid &&
+          employeeForm.controls.salary.touched
+        "
+        class="text-danger"
+      >
+        Salary is required and must be a number.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="age" class="form-label">Age</label>
+      <input
+        type="number"
+        class="form-control"
+        id="age"
+        formControlName="age"
+      />
+      <div
+        *ngIf="
+          employeeForm.controls.age.invalid && employeeForm.controls.age.touched
+        "
+        class="text-danger"
+      >
+        Age is required and must be a number.
+      </div>
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="employeeForm.invalid"
+    >
+      {{ employeeForm.value.id ? "Update" : "Create" }}
+    </button>
+  </form>
+</div>

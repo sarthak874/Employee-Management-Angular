@@ -1,0 +1,11 @@
+.delete-property {
+  margin-left: 5px;
+}
+
+.modal-backdrop.show {
+  opacity: 0.5 !important;
+}
+
+.modal.show.d-block {
+  background-color: rgba(0, 0, 0, 0.5);
+}
