@@ -17,6 +17,8 @@ export class EmployeeServiceService {
   private employeesUrl = 'http://localhost:3001/employees';
   private searchTermSource = new BehaviorSubject<string>('');
   searchTerm$ = this.searchTermSource.asObservable();
+  private messageSource = new BehaviorSubject<string | null>(null);
+  currentMessage = this.messageSource.asObservable();
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -70,6 +72,14 @@ export class EmployeeServiceService {
 
   updateSearchTerm(term: string): void {
     this.searchTermSource.next(term);
+  }
+
+  changeMessage(message: string) {
+    this.messageSource.next(message);
+  }
+
+  clearMessage() {
+    this.messageSource.next(null);
   }
 
   /** Handle Http operation that failed. */

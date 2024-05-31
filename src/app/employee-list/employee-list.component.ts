@@ -29,13 +29,12 @@ export class EmployeeListComponent implements OnInit {
       );
     });
 
-    const navigation = this.router.getCurrentNavigation();
-    const state = navigation?.extras.state as { message: string };
-
-    if (state && state.message) {
-      this.successMessage = state.message;
-      setTimeout(() => (this.successMessage = null), 3000); // Hide message after 3 seconds
-    }
+    this.employeeService.currentMessage.subscribe((message) => {
+      this.successMessage = message;
+      if (message) {
+        setTimeout(() => this.employeeService.clearMessage(), 3000); // Clear message after 3 seconds
+      }
+    });
   }
 
   fetchEmployees(): void {
@@ -50,7 +49,6 @@ export class EmployeeListComponent implements OnInit {
   }
 
   confirmDelete(employee: Employee): void {
-    console.log(employee);
     this.employeeToDelete = employee;
   }
 
@@ -67,6 +65,7 @@ export class EmployeeListComponent implements OnInit {
           );
           // this.fetchEmployees();
           this.closeModal();
+          this.employeeService.changeMessage('Employee deleted successfully!');
         });
     }
   }
@@ -76,12 +75,10 @@ export class EmployeeListComponent implements OnInit {
   }
 
   editEmployee(employee: Employee): void {
-    console.log(employee);
     this.router.navigate(['/edit', employee.id], { state: { employee } });
   }
 
   viewDetails(employee: Employee): void {
-    console.log(employee);
     this.employeeToView = employee;
   }
 

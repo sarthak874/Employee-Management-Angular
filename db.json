@@ -23,12 +23,6 @@
       "name": "SDDQ",
       "salary": 1233333,
       "age": 18
-    },
-    {
-      "id": "5",
-      "name": "John D Rockfellar",
-      "salary": 900000,
-      "age": 46
     }
   ]
 }
