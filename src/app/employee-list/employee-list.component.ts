@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./employee-list.component.css'],
 })
 export class EmployeeListComponent implements OnInit {
-  employees: any[];
+  employees: Employee[] = [];
   employeeToDelete: Employee | null = null;
   successMessage: string | null = null;
   employeeToView: Employee | null = null;
@@ -41,8 +41,8 @@ export class EmployeeListComponent implements OnInit {
   fetchEmployees(): void {
     this.employeeService.getEmployees().subscribe(
       (response) => {
-        this.filteredEmployees = response;
         this.employees = response;
+        this.filteredEmployees = response;
         console.log(this.employees);
       },
       (error) => console.error('Error fetching employees', error)
