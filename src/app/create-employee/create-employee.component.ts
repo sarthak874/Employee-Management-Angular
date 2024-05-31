@@ -53,8 +53,10 @@ export class CreateEmployeeComponent implements OnInit {
       const employeeData: Employee = this.employeeForm.value;
       if (this.isEditMode && employeeData.id) {
         console.log(employeeData);
-        this.employeeService.updateEmployee(employeeData).subscribe(() => {
-          this.employeeService.changeMessage('Employee updated successfully!');
+        this.employeeService.updateEmployee(employeeData).subscribe((updatedEmployee) => {
+          if(updatedEmployee){
+            this.employeeService.changeMessage('Employee updated successfully!');
+          }
           this.router.navigate(['/employees']);
         });
       } else {
@@ -62,9 +64,11 @@ export class CreateEmployeeComponent implements OnInit {
         this.employeeService
           .addEmployee(employeeData)
           .subscribe((newEmployee) => {
-            this.employeeService.changeMessage(
-              'Employee created successfully!'
-            );
+            if(newEmployee){
+              this.employeeService.changeMessage(
+                'Employee created successfully!'
+              );
+            }
             this.router.navigate(['/employees']);
           });
       }
