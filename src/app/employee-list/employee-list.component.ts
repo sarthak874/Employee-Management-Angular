@@ -25,7 +25,7 @@ export class EmployeeListComponent implements OnInit {
     this.employeeService.searchTerm$.subscribe((term) => {
       this.filteredEmployees = this.employees.filter(
         (employee) =>
-          employee.name.toLowerCase().includes(term.toLowerCase()) || []
+          employee.name.toLowerCase().includes(term.toLowerCase())
       );
     });
 
