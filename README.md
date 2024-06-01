@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Node version v16.18.0
 
-Used json-server - npm package for APIs (run **ng serve** in one terminal and run **json-server --watch db.json -p 3001** in other terminal parallely)
+Used json-server - npm package for APIs [db.json] (run **ng serve** in one terminal and run **json-server --watch db.json -p 3001** in other terminal parallely)
 
 ## Development server
 
